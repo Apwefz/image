@@ -1,0 +1,9 @@
+{
+  "version": 2,
+  "builds": [
+    { "src": "api/get_password.js", "use": "@vercel/node" }
+  ],
+  "routes": [
+    { "src": "/api/get_password", "dest": "/api/get_password.js" }
+  ]
+}
