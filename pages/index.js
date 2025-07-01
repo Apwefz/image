@@ -1,44 +1,41 @@
+// pages/index.js
+
 import { useState } from 'react';
 
 export default function Home() {
-  const [key, setKey] = useState('');
-  const [date, setDate] = useState('');
   const [password, setPassword] = useState('');
+  const [status, setStatus] = useState('');
 
-  const generatePassword = async () => {
-    const response = await fetch(`/api/get_password?key=${encodeURIComponent(key)}&date=${encodeURIComponent(date)}`);
-    const data = await response.json();
-    if (data.password) {
-      setPassword(data.password);
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const res = await fetch('/api/save', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ password }),
+    });
+
+    if (res.ok) {
+      setStatus('Şifre kaydedildi!');
+      setPassword('');
     } else {
-      setPassword('Hata: ' + data.error);
+      setStatus('Hata oluştu!');
     }
   };
 
   return (
-    <div style={{ textAlign: 'center', marginTop: 80 }}>
-      <h1>🔐 Şifre Oluşturucu</h1>
-      <input
-        type="text"
-        placeholder="Ortak Anahtar"
-        value={key}
-        onChange={(e) => setKey(e.target.value)}
-        style={{ padding: 10, margin: 10, width: 250 }}
-      />
-      <br />
-      <input
-        type="datetime-local"
-        value={date}
-        onChange={(e) => setDate(e.target.value)}
-        style={{ padding: 10, margin: 10, width: 250 }}
-      />
-      <br />
-      <button onClick={generatePassword} style={{ padding: 10, width: 200 }}>
-        Şifre Oluştur
-      </button>
-      <div style={{ marginTop: 20, fontSize: 24, fontWeight: 'bold' }}>
-        {password && <>Şifre: {password}</>}
-      </div>
+    <div style={{ padding: 20 }}>
+      <h1>Şifre Ekle</h1>
+      <form onSubmit={handleSubmit}>
+        <input
+          type="text"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          placeholder="Şifre girin"
+          required
+        />
+        <button type="submit">Kaydet</button>
+      </form>
+      <p>{status}</p>
     </div>
   );
 }
