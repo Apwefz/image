@@ -127,6 +127,75 @@
             color: #ccc;
         }
         
+        /* Sosyal Medya Linkleri */
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+        
+        .social-icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--light);
+            font-size: 1.8rem;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .social-icon::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s;
+        }
+        
+        .social-icon:hover::before {
+            left: 100%;
+        }
+        
+        .social-icon:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px var(--neon);
+        }
+        
+        .social-icon.kick {
+            background: var(--kick);
+            color: #000;
+        }
+        
+        .social-icon.instagram {
+            background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
+            color: white;
+        }
+        
+        .social-icon.youtube {
+            background: #ff0000;
+            color: white;
+        }
+        
+        .social-icon.twitter {
+            background: #1da1f2;
+            color: white;
+        }
+        
+        .social-icon.discord {
+            background: #5865f2;
+            color: white;
+        }
+        
         .cta-button {
             display: inline-block;
             padding: 1rem 2.5rem;
@@ -536,6 +605,17 @@
                 width: 100%;
                 height: 300px;
             }
+            
+            .social-icons {
+                flex-wrap: wrap;
+                gap: 1rem;
+            }
+            
+            .social-icon {
+                width: 50px;
+                height: 50px;
+                font-size: 1.5rem;
+            }
         }
         
         /* Animasyonlar */
@@ -580,6 +660,26 @@
             </div>
             <h1>Peziio</h1>
             <p>Kickte penziiolaşmak istermisin</p>
+            
+            <!-- Sosyal Medya Linkleri -->
+            <div class="social-icons">
+                <a href="https://kick.com/peziio" target="_blank" class="social-icon kick">
+                    <i class="fab fa-kickstarter"></i>
+                </a>
+                <a href="#" class="social-icon instagram">
+                    <i class="fab fa-instagram"></i>
+                </a>
+                <a href="#" class="social-icon youtube">
+                    <i class="fab fa-youtube"></i>
+                </a>
+                <a href="#" class="social-icon twitter">
+                    <i class="fab fa-twitter"></i>
+                </a>
+                <a href="#" class="social-icon discord">
+                    <i class="fab fa-discord"></i>
+                </a>
+            </div>
+            
             <a href="#live" class="cta-button glow">Hakkında</a>
         </div>
     </section>
@@ -835,6 +935,19 @@
                 e.preventDefault();
                 alert('Mesajınız başarıyla gönderildi! En kısa sürede size dönüş yapacağım.');
                 contactForm.reset();
+            });
+            
+            // Sosyal medya ikonlarına animasyon ekleme
+            const socialIcons = document.querySelectorAll('.social-icon');
+            socialIcons.forEach((icon, index) => {
+                icon.style.opacity = '0';
+                icon.style.transform = 'translateY(20px)';
+                
+                setTimeout(() => {
+                    icon.style.transition = 'all 0.5s ease';
+                    icon.style.opacity = '1';
+                    icon.style.transform = 'translateY(0)';
+                }, 400 + (index * 100));
             });
         });
     </script>
