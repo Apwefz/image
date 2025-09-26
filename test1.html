@@ -330,6 +330,59 @@
             margin-bottom: 0.5rem;
         }
         
+        /* Görseller Bölümü */
+        .gallery {
+            padding: 5rem 0;
+            background: rgba(0, 0, 0, 0.3);
+        }
+        
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .gallery-item {
+            position: relative;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 0 15px rgba(255, 0, 255, 0.3);
+            transition: all 0.3s ease;
+            height: 250px;
+        }
+        
+        .gallery-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 25px var(--neon);
+        }
+        
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+        
+        .gallery-caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(0, 0, 0, 0.7);
+            padding: 1rem;
+            transform: translateY(100%);
+            transition: transform 0.3s ease;
+        }
+        
+        .gallery-item:hover .gallery-caption {
+            transform: translateY(0);
+        }
+        
         /* İletişim Bölümü */
         .contact-content {
             display: flex;
@@ -475,6 +528,10 @@
                 grid-template-columns: 1fr;
             }
             
+            .gallery-grid {
+                grid-template-columns: 1fr;
+            }
+            
             iframe {
                 width: 100%;
                 height: 300px;
@@ -508,6 +565,7 @@
                     <li><a href="#home">Ana Sayfa</a></li>
                     <li><a href="#live">Canlı Yayın</a></li>
                     <li><a href="#about">Hakkımda</a></li>
+                    <li><a href="#gallery">Galeri</a></li>
                     <li><a href="#contact">İletişim</a></li>
                 </ul>
             </nav>
@@ -574,6 +632,57 @@
                         <i class="fas fa-clock"></i>
                         <h3>500+</h3>
                         <p>Yayın Saati</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Galeri Bölümü -->
+    <section id="gallery" class="gallery">
+        <div class="container">
+            <h2 class="section-title">Galeri</h2>
+            <div class="gallery-grid">
+                <div class="gallery-item">
+                    <img src="https://via.placeholder.com/400x250/8a2be2/ffffff?text=Valorant+Gameplay" alt="Valorant Gameplay">
+                    <div class="gallery-caption">
+                        <h3>Valorant Gameplay</h3>
+                        <p>En iyi anlarımızdan bir kesit</p>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://via.placeholder.com/400x250/9b30ff/ffffff?text=Community+Event" alt="Community Event">
+                    <div class="gallery-caption">
+                        <h3>Topluluk Etkinliği</h3>
+                        <p>İzleyicilerimle harika bir etkinlik</p>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://via.placeholder.com/400x250/ff00ff/ffffff?text=Stream+Setup" alt="Stream Setup">
+                    <div class="gallery-caption">
+                        <h3>Yayın Kurulumum</h3>
+                        <p>Profesyonel yayın düzeneğim</p>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://via.placeholder.com/400x250/53fc18/000000?text=Tournament+Win" alt="Tournament Win">
+                    <div class="gallery-caption">
+                        <h3>Turnuva Zaferi</h3>
+                        <p>Kazanılan bir turnuva anısı</p>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://via.placeholder.com/400x250/8a2be2/ffffff?text=Fun+Moments" alt="Fun Moments">
+                    <div class="gallery-caption">
+                        <h3>Eğlenceli Anlar</h3>
+                        <p>Yayınlardan komik kesitler</p>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://via.placeholder.com/400x250/9b30ff/ffffff?text=Behind+The+Scenes" alt="Behind The Scenes">
+                    <div class="gallery-caption">
+                        <h3>Kamera Arkası</h3>
+                        <p>Yayın dışı keyifli anlar</p>
                     </div>
                 </div>
             </div>
@@ -663,7 +772,7 @@
             
             try {
                 // Kick.com embed iframe'ini yükle
-                root.innerHTML = `<iframe src="https://kick.com/peziio/${username}" width="100%" height="500" frameborder="0" allowfullscreen></iframe>`;
+                root.innerHTML = `<iframe src="https://kick.com/${username}" width="100%" height="500" frameborder="0" allowfullscreen></iframe>`;
                 
                 // Canlı yayın bilgilerini güncelle
                 streamTitle.textContent = "sohbetleşme";
@@ -705,6 +814,19 @@
                     stat.style.opacity = '1';
                     stat.style.transform = 'translateY(0)';
                 }, 300 + (index * 100));
+            });
+            
+            // Galeri öğelerine animasyon ekleme
+            const galleryItems = document.querySelectorAll('.gallery-item');
+            galleryItems.forEach((item, index) => {
+                item.style.opacity = '0';
+                item.style.transform = 'translateY(30px)';
+                
+                setTimeout(() => {
+                    item.style.transition = 'all 0.5s ease';
+                    item.style.opacity = '1';
+                    item.style.transform = 'translateY(0)';
+                }, 600 + (index * 100));
             });
             
             // Form gönderimini simüle etme
